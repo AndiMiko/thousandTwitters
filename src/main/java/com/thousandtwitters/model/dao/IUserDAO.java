@@ -1,7 +1,9 @@
 package com.thousandtwitters.model.dao;
 
-/**
- * Created by A1m on 24.01.2017.
- */
+import com.thousandtwitters.model.entitys.User;
+import java.util.List;
+
 public interface IUserDAO {
+    List<User> getAllUsers();
+    User getUser(int uid);
 }
