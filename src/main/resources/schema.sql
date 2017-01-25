@@ -1,13 +1,24 @@
 DROP TABLE IF EXISTS tweet;
 DROP TABLE IF EXISTS follows;
+DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE user (
   U_Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   Username VARCHAR(45) NOT NULL,
-  Email VARCHAR(45) NOT NULL,
+  Password VARCHAR(60) NOT NULL,
+  Enabled BOOLEAN NOT NULL,
+  Email VARCHAR(100) NOT NULL,
   PRIMARY KEY (U_Id)
 );
+
+create table authorities (
+  User INT UNSIGNED not null,
+  Authority VARCHAR(50) not null,
+  PRIMARY KEY (User, Authority),
+  FOREIGN KEY (User) REFERENCES user(U_Id)
+);
+
 
 CREATE TABLE tweet (
   T_Id INT UNSIGNED NOT NULL AUTO_INCREMENT,

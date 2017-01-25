@@ -1,11 +1,17 @@
-INSERT INTO user (Username, Email)
-VALUES ('Alice', 'alice@thousandtwitters.com');
+INSERT INTO user (Username, Password, Email, enabled)
+VALUES ('Alice', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'alice@thousandtwitters.com', true);
 
-INSERT INTO user (Username, Email)
-VALUES ('Bob', 'bob@gmail.com');
+INSERT INTO user (Username, Password, Email, enabled)
+VALUES ('Bob', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'bob@gmail.com', true);
 
-INSERT INTO user (Username, Email)
-VALUES ('John', 'john@johnsdomain.com');
+INSERT INTO user (Username, Password, Email, enabled)
+VALUES ('John', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'john@johnsdomain.com', true);
+
+INSERT INTO authorities (User, Authority)
+VALUES (1, 'User');
+
+INSERT INTO authorities (User, Authority)
+VALUES (2, 'User');
 
 INSERT INTO follows (Follower, Followed)
 VALUES ('1', '2');
