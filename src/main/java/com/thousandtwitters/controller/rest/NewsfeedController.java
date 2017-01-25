@@ -28,10 +28,9 @@ public class NewsfeedController {
     private IFollowsDAO followsDAO;
 
     @RequestMapping
-    List<Tweet> getNewsfeed(@PathVariable String userId, @RequestParam Optional<String> search) {
-        User user = userDAO.getUser(Integer.valueOf(userId));
-        List<User> followed = followsDAO.getFollowed(user);
-        followed.add(user);
+    List<Tweet> getNewsfeed(@PathVariable int userId, @RequestParam Optional<String> search) {
+        List<User> followed = followsDAO.getFollowed(userId);
+        followed.add(userDAO.getUser(userId));
         return tweetDAO.getNewsfeed(followed, search.orElse(""));
     }
 }

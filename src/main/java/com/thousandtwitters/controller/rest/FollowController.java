@@ -1,7 +1,6 @@
 package com.thousandtwitters.controller.rest;
 
 import com.thousandtwitters.model.dao.IFollowsDAO;
-import com.thousandtwitters.model.dao.IUserDAO;
 import com.thousandtwitters.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,35 +10,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/{userId:[\\\\d]+}")
+@RequestMapping("/{userId}")
 public class FollowController {
-    @Autowired
-    private IUserDAO userDAO;
 
     @Autowired
     private IFollowsDAO followsDAO;
 
     @RequestMapping("/followedBy")
-    List<User> getFollowers(@PathVariable String userId) {
-        return followsDAO.getFollowers(getUserFromId(userId));
+    List<User> getFollowers(@PathVariable int userId) {
+        return followsDAO.getFollowers(userId);
     }
 
     @RequestMapping("/follows")
-    List<User> getFollowed(@PathVariable String userId) {
-        return followsDAO.getFollowed(getUserFromId(userId));
+    List<User> getFollowed(@PathVariable int userId) {
+        return followsDAO.getFollowed(userId);
     }
 
     @RequestMapping("/follow/{toFollowId}")
-    void follow(@PathVariable String userId, @PathVariable String toFollowId) {
-        followsDAO.follow(Integer.valueOf(userId), Integer.valueOf(toFollowId));
+    void follow(@PathVariable int userId, @PathVariable int toFollowId) {
+        followsDAO.follow(userId, toFollowId);
     }
 
     @RequestMapping("/unfollow/{toFollowId}")
-    void unfollow(@PathVariable String userId, @PathVariable String toFollowId) {
-        followsDAO.unfollow(Integer.valueOf(userId), Integer.valueOf(toFollowId));
-    }
-
-    private User getUserFromId(String userId) {
-        return userDAO.getUser(Integer.valueOf(userId));
+    void unfollow(@PathVariable int userId, @PathVariable int toFollowId) {
+        followsDAO.unfollow(userId, toFollowId);
     }
 }

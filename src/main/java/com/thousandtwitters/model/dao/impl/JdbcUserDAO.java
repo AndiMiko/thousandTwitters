@@ -8,8 +8,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository("IUserDAO")
 public class JdbcUserDAO implements IUserDAO {
 
@@ -17,13 +15,8 @@ public class JdbcUserDAO implements IUserDAO {
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
-
-    @Override
     public User getUser(int uid) {
-        String sql = "select U_Id, Username, Email from user where U_Id = :uid";
+        String sql = "SELECT U_Id, Username, Email FROM user WHERE U_Id = :uid";
         SqlParameterSource namedParameters = new MapSqlParameterSource("uid", uid);
         // BeanPropertySqlParameterSource BeanPropertyRowMapper
         return this.namedJdbcTemplate.queryForObject(sql, namedParameters,

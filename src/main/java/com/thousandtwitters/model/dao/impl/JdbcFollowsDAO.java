@@ -18,19 +18,25 @@ public class JdbcFollowsDAO implements IFollowsDAO {
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public List<User> getFollowed(User user) {
+    public List<User> getFollowed(int userId) {
         String sql = "SELECT u.U_Id, u.Username, u.Email " +
                         "FROM user u, follows f " +
                         "WHERE f.followed = u.U_Id AND f.follower = :uid";
-        return getFollows(user, sql);
+        return getFollows(userId, sql);
     }
 
     @Override
-    public List<User> getFollowers(User user) {
+    public List<User> getFollowers(int userId) {
         String sql = "SELECT u.U_Id, u.Username, u.Email " +
                         "FROM user u, follows f " +
                         "WHERE f.follower = u.U_Id AND f.followed = :uid";
-        return getFollows(user, sql);
+        return getFollows(userId, sql);
+    }
+
+    private List<User> getFollows(int userId, String sql) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", userId);
+        return this.namedJdbcTemplate.query(sql, namedParameters,
+                (rs, rowNum) ->  new User(rs.getInt("u.U_Id"), rs.getString("Username"), rs.getString("Email")));
     }
 
     @Override
@@ -50,11 +56,5 @@ public class JdbcFollowsDAO implements IFollowsDAO {
         namedParameters.addValue("follower", followerId);
         namedParameters.addValue("followed", followedId);
         this.namedJdbcTemplate.update(sql, namedParameters);
-    }
-
-    private List<User> getFollows(User user, String sql) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", user.getId());
-        return this.namedJdbcTemplate.query(sql, namedParameters,
-                (rs, rowNum) ->  new User(rs.getInt("u.U_Id"), rs.getString("Username"), rs.getString("Email")));
     }
 }
