@@ -18,7 +18,14 @@ public class JdbcUserDAO implements IUserDAO {
     public User getUser(int uid) {
         String sql = "SELECT U_Id, Username, Email FROM user WHERE U_Id = :uid";
         SqlParameterSource namedParameters = new MapSqlParameterSource("uid", uid);
-        // BeanPropertySqlParameterSource BeanPropertyRowMapper
+        return this.namedJdbcTemplate.queryForObject(sql, namedParameters,
+                (rs, rowNum) -> new User(rs.getInt("U_Id"), rs.getString("Username"), rs.getString("Email")));
+    }
+
+    @Override
+    public User getUser(String username) {
+        String sql = "SELECT U_Id, Username, Email FROM user WHERE Username = :username";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("username", username);
         return this.namedJdbcTemplate.queryForObject(sql, namedParameters,
                 (rs, rowNum) -> new User(rs.getInt("U_Id"), rs.getString("Username"), rs.getString("Email")));
     }

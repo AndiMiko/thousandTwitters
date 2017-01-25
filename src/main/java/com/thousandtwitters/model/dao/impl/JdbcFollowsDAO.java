@@ -18,43 +18,43 @@ public class JdbcFollowsDAO implements IFollowsDAO {
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public List<User> getFollowed(int userId) {
+    public List<User> getFollowed(User user) {
         String sql = "SELECT u.U_Id, u.Username, u.Email " +
                         "FROM user u, follows f " +
                         "WHERE f.followed = u.U_Id AND f.follower = :uid";
-        return getFollows(userId, sql);
+        return getFollows(user, sql);
     }
 
     @Override
-    public List<User> getFollowers(int userId) {
+    public List<User> getFollowers(User user) {
         String sql = "SELECT u.U_Id, u.Username, u.Email " +
                         "FROM user u, follows f " +
                         "WHERE f.follower = u.U_Id AND f.followed = :uid";
-        return getFollows(userId, sql);
+        return getFollows(user, sql);
     }
 
-    private List<User> getFollows(int userId, String sql) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", userId);
+    private List<User> getFollows(User user, String sql) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", user.getId());
         return this.namedJdbcTemplate.query(sql, namedParameters,
                 (rs, rowNum) ->  new User(rs.getInt("u.U_Id"), rs.getString("Username"), rs.getString("Email")));
     }
 
     @Override
-    public void follow(int followerId, int followedId) {
+    public void follow(User follower, User followed) {
         String sql = "INSERT IGNORE INTO follows (Follower, Followed) VALUES (:follower, :followed)";
-        executeFollow(sql, followerId, followedId);
+        executeFollow(sql, follower, followed);
     }
 
     @Override
-    public void unfollow(int followerId, int followedId) {
+    public void unfollow(User follower, User followed) {
         String sql = "DELETE FROM follows WHERE Follower = :follower AND Followed = :followed";
-        executeFollow(sql, followerId, followedId);
+        executeFollow(sql, follower, followed);
     }
 
-    private void executeFollow(String sql, int followerId, int followedId) {
+    private void executeFollow(String sql, User follower, User followed) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("follower", followerId);
-        namedParameters.addValue("followed", followedId);
+        namedParameters.addValue("follower", follower.getId());
+        namedParameters.addValue("followed", followed.getId());
         this.namedJdbcTemplate.update(sql, namedParameters);
     }
 }
