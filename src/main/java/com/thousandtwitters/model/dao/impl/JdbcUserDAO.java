@@ -1,9 +1,11 @@
 package com.thousandtwitters.model.dao.impl;
 
 import com.thousandtwitters.model.dao.IUserDAO;
-import com.thousandtwitters.model.entitys.User;
+import com.thousandtwitters.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class JdbcUserDAO implements IUserDAO {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
     public List<User> getAllUsers() {
@@ -21,14 +23,10 @@ public class JdbcUserDAO implements IUserDAO {
 
     @Override
     public User getUser(int uid) {
-        return this.jdbcTemplate.queryForObject(
-                "select Username, Email from user where U_Id = ?",
-                new Object[]{uid},
-                (rs, rowNum) -> {
-                    User user = new User();
-                    user.setUsername(rs.getString("Username"));
-                    user.setEmail(rs.getString("Email"));
-                    return user;
-                });
+        String sql = "select U_Id, Username, Email from user where U_Id = :uid";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", uid);
+        // BeanPropertySqlParameterSource BeanPropertyRowMapper
+        return this.namedJdbcTemplate.queryForObject(sql, namedParameters,
+                (rs, rowNum) -> new User(rs.getInt("U_Id"), rs.getString("Username"), rs.getString("Email")));
     }
 }
