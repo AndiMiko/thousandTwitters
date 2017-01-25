@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/{userId}")
+@RequestMapping("/{userId:[\\\\d]+}")
 public class FollowController {
     @Autowired
     private IUserDAO userDAO;

@@ -8,5 +8,5 @@ import java.util.List;
 public interface ITweetDAO {
 
     List<Tweet> getTweets(User user);
-    List<Tweet> getNewsfeed(List<User> user);
+    List<Tweet> getNewsfeed(List<User> user, String search);
 }

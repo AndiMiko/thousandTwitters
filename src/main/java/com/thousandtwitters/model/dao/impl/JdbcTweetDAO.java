@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository("ITweetDAO")
 public class JdbcTweetDAO implements ITweetDAO {
@@ -21,23 +20,25 @@ public class JdbcTweetDAO implements ITweetDAO {
 
     @Override
     public List<Tweet> getTweets(User user) {
-        String sql = "select t.T_Id, t.Text " +
-                        "from tweet t " +
-                        "where t.User = :uid";
+        String sql = "SELECT t.T_Id, t.Text " +
+                        "FROM tweet t " +
+                        "WHERE t.User = :uid";
         SqlParameterSource namedParameters = new MapSqlParameterSource("uid", user.getId());
         return this.namedJdbcTemplate.query(sql, namedParameters,
                 (rs, rowNum) ->  new Tweet(rs.getInt("T_Id"), rs.getString("Text"), user));
     }
 
     @Override
-    public List<Tweet> getNewsfeed(List<User> users) {
+    public List<Tweet> getNewsfeed(List<User> users, String search) {
         if (users.isEmpty())
             return new LinkedList<>();
-        String sql = "select t.T_Id, t.Text, t.User " +
-                        "from tweet t " +
-                        "where t.User IN (:uids)";
+        String sql = "SELECT t.T_Id, t.Text, t.User " +
+                        "FROM tweet t " +
+                        "WHERE t.User IN (:uids) " +
+                        "AND t.Text LIKE '%" + search + "%'";
+
         HashMap<Integer, User> userMap = toUserMap(users);
-        SqlParameterSource namedParameters = new MapSqlParameterSource("uids", userMap.keySet());
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource("uids", userMap.keySet());
         return this.namedJdbcTemplate.query(sql, namedParameters,
                 (rs, rowNum) ->  new Tweet(rs.getInt("T_Id"), rs.getString("Text"), userMap.get(rs.getInt("User"))));
     }
