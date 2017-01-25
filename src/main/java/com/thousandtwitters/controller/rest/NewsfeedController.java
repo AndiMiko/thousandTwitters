@@ -26,8 +26,8 @@ public class NewsfeedController {
     private IFollowsDAO followsDAO;
 
     @RequestMapping
-    List<Tweet> showNewsfeed(@PathVariable String userId) {
+    List<Tweet> getNewsfeed(@PathVariable String userId) {
         User user = userDAO.getUser(Integer.valueOf(userId));
-        return tweetDAO.getNewsfeed(followsDAO.getFollowed(user));
+        return tweetDAO.getNewsfeed(followsDAO.getFollowed(user)); //TODO add own tweets
     }
 }
