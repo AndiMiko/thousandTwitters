@@ -18,10 +18,9 @@ CREATE TABLE tweet (
 );
 
 CREATE TABLE follows (
-  F_Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   Follower INT UNSIGNED NOT NULL,
   Followed INT UNSIGNED NOT NULL,
-  PRIMARY KEY (F_Id),
+  PRIMARY KEY (Follower, Followed),
   FOREIGN KEY (Follower) REFERENCES user(U_Id),
   FOREIGN KEY (Followed) REFERENCES user(U_Id)
 );

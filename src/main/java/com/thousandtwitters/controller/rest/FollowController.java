@@ -29,6 +29,16 @@ public class FollowController {
         return followsDAO.getFollowed(getUserFromId(userId));
     }
 
+    @RequestMapping("/follow/{toFollowId}")
+    void follow(@PathVariable String userId, @PathVariable String toFollowId) {
+        followsDAO.follow(Integer.valueOf(userId), Integer.valueOf(toFollowId));
+    }
+
+    @RequestMapping("/unfollow/{toFollowId}")
+    void unfollow(@PathVariable String userId, @PathVariable String toFollowId) {
+        followsDAO.unfollow(Integer.valueOf(userId), Integer.valueOf(toFollowId));
+    }
+
     private User getUserFromId(String userId) {
         return userDAO.getUser(Integer.valueOf(userId));
     }

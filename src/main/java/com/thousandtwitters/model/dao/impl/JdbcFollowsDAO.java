@@ -33,6 +33,25 @@ public class JdbcFollowsDAO implements IFollowsDAO {
         return getFollows(user, sql);
     }
 
+    @Override
+    public void follow(int followerId, int followedId) {
+        String sql = "INSERT IGNORE INTO follows (Follower, Followed) VALUES (:follower, :followed)";
+        executeFollow(sql, followerId, followedId);
+    }
+
+    @Override
+    public void unfollow(int followerId, int followedId) {
+        String sql = "DELETE FROM follows WHERE Follower = :follower AND Followed = :followed";
+        executeFollow(sql, followerId, followedId);
+    }
+
+    private void executeFollow(String sql, int followerId, int followedId) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("follower", followerId);
+        namedParameters.addValue("followed", followedId);
+        this.namedJdbcTemplate.update(sql, namedParameters);
+    }
+
     private List<User> getFollows(User user, String sql) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("uid", user.getId());
         return this.namedJdbcTemplate.query(sql, namedParameters,
