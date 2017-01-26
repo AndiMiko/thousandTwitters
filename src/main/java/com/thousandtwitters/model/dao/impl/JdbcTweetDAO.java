@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Repository("ITweetDAO")
 public class JdbcTweetDAO implements ITweetDAO {
@@ -56,10 +58,6 @@ public class JdbcTweetDAO implements ITweetDAO {
         for (User user : users) {
             userMap.put(user.getId(), user);
         }
-        /*
-        userMap = users.stream()
-                .collect(Collectors.toMap(User::getId, Function.identity()));
-        */
         return userMap;
     }
 }

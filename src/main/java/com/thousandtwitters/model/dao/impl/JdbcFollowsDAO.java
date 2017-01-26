@@ -57,7 +57,7 @@ public class JdbcFollowsDAO implements IFollowsDAO {
 
     private void validateParameters(User follower, User followed) {
         if (follower.getId() == followed.getId())
-            throw new InvalidDAOParameterException("A User can't follow himself");
+            throw new InvalidDAOParameterException("A User can't follow himself.");
     }
 
     private void executeFollow(String sql, User follower, User followed) {
