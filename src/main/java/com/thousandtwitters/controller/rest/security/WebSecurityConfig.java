@@ -34,7 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT Username, Password, Enabled FROM user WHERE Username=?")
                 .authoritiesByUsernameQuery("SELECT Username, Authority FROM authorities a, user u WHERE a.User = u.U_Id AND u.Username = ?");
-
     }
 
     public PasswordEncoder passwordEncoder(){

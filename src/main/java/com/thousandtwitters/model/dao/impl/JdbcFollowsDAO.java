@@ -1,6 +1,7 @@
 package com.thousandtwitters.model.dao.impl;
 
 
+import com.thousandtwitters.controller.rest.exception.InvalidDAOParameterException;
 import com.thousandtwitters.model.dao.IFollowsDAO;
 import com.thousandtwitters.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,22 @@ public class JdbcFollowsDAO implements IFollowsDAO {
 
     @Override
     public void follow(User follower, User followed) {
+        validateParameters(follower, followed);
         String sql = "INSERT IGNORE INTO follows (Follower, Followed) VALUES (:follower, :followed)";
         executeFollow(sql, follower, followed);
     }
 
     @Override
     public void unfollow(User follower, User followed) {
+        validateParameters(follower, followed);
         String sql = "DELETE FROM follows WHERE Follower = :follower AND Followed = :followed";
         executeFollow(sql, follower, followed);
+
+    }
+
+    private void validateParameters(User follower, User followed) {
+        if (follower.getId() == followed.getId())
+            throw new InvalidDAOParameterException("A User can't follow himself");
     }
 
     private void executeFollow(String sql, User follower, User followed) {
