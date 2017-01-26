@@ -1,5 +1,4 @@
-package com.thousandtwitters.model.entities;
-
+package com.thousandtwitters.model.dao.entities;
 
 public class Tweet {
     private int id;
@@ -24,24 +23,8 @@ public class Tweet {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Tweet{" +
-                "id=" + id +
-                ", user=" + user.getUsername() +
-                ", text='" + text + '\'' +
-                '}';
-    }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
 
-    @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     @ResponseBody
     Map<String, Object> defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
@@ -29,7 +29,7 @@ public class GlobalControllerExceptionHandler {
         return info;
     }
 
-    @ResponseStatus(value=HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({UserNotFoundDataAccessException.class})
     @ResponseBody
     public Map<String, Object> unexpectedResult(HttpServletRequest req, UserNotFoundDataAccessException e) {
@@ -44,7 +44,7 @@ public class GlobalControllerExceptionHandler {
         return info;
     }
 
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({InvalidDAOParameterException.class})
     @ResponseBody
     public String invalidDAOParameter(InvalidDAOParameterException e) {

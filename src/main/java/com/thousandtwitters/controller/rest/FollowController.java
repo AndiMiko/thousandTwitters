@@ -2,18 +2,13 @@ package com.thousandtwitters.controller.rest;
 
 import com.thousandtwitters.model.dao.IFollowsDAO;
 import com.thousandtwitters.model.dao.IUserDAO;
-import com.thousandtwitters.model.entities.User;
+import com.thousandtwitters.model.dao.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class FollowController {

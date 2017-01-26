@@ -3,7 +3,7 @@ package com.thousandtwitters.model.dao.impl;
 
 import com.thousandtwitters.controller.rest.exception.InvalidDAOParameterException;
 import com.thousandtwitters.model.dao.IFollowsDAO;
-import com.thousandtwitters.model.entities.User;
+import com.thousandtwitters.model.dao.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

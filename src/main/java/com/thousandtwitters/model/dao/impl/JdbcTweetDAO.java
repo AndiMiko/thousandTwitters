@@ -2,8 +2,8 @@ package com.thousandtwitters.model.dao.impl;
 
 import com.thousandtwitters.model.dao.IFollowsDAO;
 import com.thousandtwitters.model.dao.ITweetDAO;
-import com.thousandtwitters.model.entities.Tweet;
-import com.thousandtwitters.model.entities.User;
+import com.thousandtwitters.model.dao.entities.Tweet;
+import com.thousandtwitters.model.dao.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
