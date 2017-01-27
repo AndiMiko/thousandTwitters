@@ -1,9 +1,9 @@
 package com.thousandtwitters.controller.rest;
 
-import com.thousandtwitters.model.dao.ITweetDAO;
-import com.thousandtwitters.model.dao.IUserDAO;
-import com.thousandtwitters.model.dao.entities.Tweet;
-import com.thousandtwitters.model.dao.entities.User;
+import com.thousandtwitters.model.dao.TweetDAO;
+import com.thousandtwitters.model.dao.UserDAO;
+import com.thousandtwitters.model.dao.impl.Tweet;
+import com.thousandtwitters.model.dao.impl.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +18,10 @@ import java.util.Optional;
 public class NewsfeedController {
 
     @Autowired
-    private IUserDAO userDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    private ITweetDAO tweetDAO;
+    private TweetDAO tweetDAO;
 
     @RequestMapping("/newsfeed")
     List<Tweet> getNewsfeed(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Optional<String> search) {

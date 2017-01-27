@@ -1,38 +1,27 @@
 package com.thousandtwitters.model.dao.impl;
 
-import com.thousandtwitters.model.dao.IFollowsDAO;
-import com.thousandtwitters.model.dao.ITweetDAO;
-import com.thousandtwitters.model.dao.entities.Tweet;
-import com.thousandtwitters.model.dao.entities.User;
+import com.thousandtwitters.model.dao.TweetDAO;
+import com.thousandtwitters.model.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
+/**
+ * JDBC implementation specific to the MySQL dialect.
+ * //TODO: Choose dialect dynamically and add localization to Strings if necessary.
+ */
 @Repository("ITweetDAO")
-public class JdbcTweetDAO implements ITweetDAO {
+public class JdbcTweetDAO implements TweetDAO {
 
     @Autowired
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Autowired
-    private IFollowsDAO followsDAO;
-
-    @Override
-    public List<Tweet> getTweets(User user) {
-        String sql = "SELECT t.T_Id, t.Text " +
-                        "FROM tweet t " +
-                        "WHERE t.User = :uid";
-        SqlParameterSource namedParameters = new MapSqlParameterSource("uid", user.getId());
-        return this.namedJdbcTemplate.query(sql, namedParameters,
-                (rs, rowNum) ->  new Tweet(rs.getInt("T_Id"), rs.getString("Text"), user));
-    }
+    private UserDAO userDAO;
 
     @Override
     public List<Tweet> getNewsfeed(User user, String search) {
@@ -48,7 +37,7 @@ public class JdbcTweetDAO implements ITweetDAO {
     }
 
     private List<User> getFollowed(User user) {
-        List<User> followed = followsDAO.getFollowed(user);
+        List<User> followed = userDAO.getFollowedBy(user);
         followed.add(user);
         return followed;
     }

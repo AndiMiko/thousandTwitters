@@ -4,7 +4,7 @@ import org.springframework.dao.DataAccessException;
 
 public class UserNotFoundDataAccessException extends DataAccessException {
 
-    private DataAccessException nestedException;
+    private final DataAccessException nestedException;
 
     public UserNotFoundDataAccessException(String message, DataAccessException nestedException) {
         super(message);

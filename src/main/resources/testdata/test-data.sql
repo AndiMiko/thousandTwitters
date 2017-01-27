@@ -1,12 +1,12 @@
 INSERT INTO user (Username, Password, Email, enabled)
 VALUES
-  ('Cartman', '$2a$10$PwrVS2oXfp6k4.3iOQF2I.jGl3hQBLxyf362VqEB66cqco2FCNrvm', 'cartman@whitehouse.gov', true),
-  ('Stan', '$2a$10$hif0VqrdDs8/yEp0bt4Zx.T8nYQDerdBagqVEtmMgNRGWonFrzcO2', 'stan@whitehouse.gov', true),
-  ('Kyle', '$2a$10$gbQ9JJUeTRDNnYifDx.KAeH4NoWBwqlPs7z8EMikni5OSw0hGmADK', 'kyle@whitehouse.gov', true),
-  ('Tweek', '$2a$10$VwOYInlhiPCCi2PIuMFba.olDiThSMb8/uqzBwN6fb0bLv7WzjAo2', 'tweek@whitehouse.gov', true),
-  ('Butters', '$2a$10$kGpgEdDoPd1sbi7h4Ntrqu7fnijEkteT4Bq/kI7WLQtRV6WmU1GWK', 'leopoldstotch@whitehouse.gov', true),
-  ('Ike', '$2a$10$EnwJk5DXYCyH5zN7dOi7Q.oNsHE7Bg2cwPOqQYXnYKGlSGmoKaMIi', 'ike@whitehouse.gov', true),
-  ('Wendy', '$2a$10$Nn5ZBfo1D58cnOvOvnRO8OLGeYuXg9U14PJDpUq1qoxaONX7FKhFm', 'wendy@whitehouse.gov', true);
+  ('Cartman', '$2a$10$PwrVS2oXfp6k4.3iOQF2I.jGl3hQBLxyf362VqEB66cqco2FCNrvm', 'cartman@1ktwitter.com', true),
+  ('Stan', '$2a$10$hif0VqrdDs8/yEp0bt4Zx.T8nYQDerdBagqVEtmMgNRGWonFrzcO2', 'stan@1ktwitter.com', true),
+  ('Kyle', '$2a$10$gbQ9JJUeTRDNnYifDx.KAeH4NoWBwqlPs7z8EMikni5OSw0hGmADK', 'kyle@1ktwitter.com', true),
+  ('Tweek', '$2a$10$VwOYInlhiPCCi2PIuMFba.olDiThSMb8/uqzBwN6fb0bLv7WzjAo2', 'tweek@1ktwitter.com', true),
+  ('Butters', '$2a$10$kGpgEdDoPd1sbi7h4Ntrqu7fnijEkteT4Bq/kI7WLQtRV6WmU1GWK', 'leopoldstotch@1ktwitter.com', true),
+  ('Ike', '$2a$10$EnwJk5DXYCyH5zN7dOi7Q.oNsHE7Bg2cwPOqQYXnYKGlSGmoKaMIi', 'ike@1ktwitter.com', true),
+  ('Wendy', '$2a$10$Nn5ZBfo1D58cnOvOvnRO8OLGeYuXg9U14PJDpUq1qoxaONX7FKhFm', 'wendy@1ktwitter.com', true);
 
 INSERT INTO authorities (User, Authority)
 VALUES

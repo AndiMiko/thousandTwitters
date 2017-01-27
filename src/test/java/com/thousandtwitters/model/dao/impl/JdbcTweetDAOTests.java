@@ -1,18 +1,11 @@
 package com.thousandtwitters.model.dao.impl;
 
-import com.thousandtwitters.controller.rest.exception.InvalidDAOParameterException;
-import com.thousandtwitters.model.dao.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,10 +18,10 @@ public class JdbcTweetDAOTests {
     @Autowired
     private JdbcTweetDAO jdbcTweetDAO;
 
-    private User user1 = new User(1, "Cartman", "cartman@whitehouse.gov");
-    private User user3 = new User(3, "Kyle", "kyle@whitehouse.gov");
-    private User user4 = new User(4, "Tweek", "tweek@whitehouse.gov");
-    private User user5 = new User(5, "Butters", "leopoldstotch@whitehouse.gov");
+    private final User user1 = new User(1, "Cartman", "cartman@1ktwitter.com");
+    private final User user3 = new User(3, "Kyle", "kyle@1ktwitter.com");
+    private final User user4 = new User(4, "Tweek", "tweek@1ktwitter.com");
+    private final User user5 = new User(5, "Butters", "leopoldstotch@1ktwitter.com");
 
     @Test
     public void getNewsfeedSize() {

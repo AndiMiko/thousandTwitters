@@ -2,9 +2,8 @@ package com.thousandtwitters;
 
 import com.thousandtwitters.controller.rest.FollowController;
 import com.thousandtwitters.controller.rest.NewsfeedController;
-import com.thousandtwitters.model.dao.IFollowsDAO;
-import com.thousandtwitters.model.dao.ITweetDAO;
-import com.thousandtwitters.model.dao.IUserDAO;
+import com.thousandtwitters.model.dao.TweetDAO;
+import com.thousandtwitters.model.dao.UserDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,9 @@ public class ThousandTwittersApplicationTests {
 	@Autowired
 	private NewsfeedController newsfeedController;
 	@Autowired
-	private IFollowsDAO followsDAO;
+	private TweetDAO tweetDAO;
 	@Autowired
-	private ITweetDAO tweetDAO;
-	@Autowired
-	private IUserDAO userDAO;
+	private UserDAO userDAO;
 
 	@LocalServerPort
 	private int port;
@@ -41,7 +38,6 @@ public class ThousandTwittersApplicationTests {
 	public void contextLoads() {
 		assertThat(followController).isNotNull();
 		assertThat(newsfeedController).isNotNull();
-		assertThat(followsDAO).isNotNull();
 		assertThat(tweetDAO).isNotNull();
 		assertThat(userDAO).isNotNull();
 	}
