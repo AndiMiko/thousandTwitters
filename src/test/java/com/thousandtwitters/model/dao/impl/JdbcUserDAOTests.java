@@ -1,6 +1,7 @@
 package com.thousandtwitters.model.dao.impl;
 
 import com.thousandtwitters.controller.rest.exception.InvalidDAOParameterException;
+import com.thousandtwitters.controller.rest.exception.UserNotFoundDataAccessException;
 import com.thousandtwitters.model.dao.UserDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,16 @@ public class JdbcUserDAOTests {
         assertThat(jdbcUserDAO.getUser("Stan").getUsername()).isEqualTo("Stan");
         assertThat(jdbcUserDAO.getUser("Tweek").getUsername()).isEqualTo("Tweek");
         assertThat(jdbcUserDAO.getUser("Wendy").getUsername()).isEqualTo("Wendy");
+    }
+
+    @Test(expected=UserNotFoundDataAccessException.class)
+    public void getInvalidUserById() {
+        jdbcUserDAO.getUser(42);
+    }
+
+    @Test(expected=UserNotFoundDataAccessException.class)
+    public void getInvalidUserByName() {
+        jdbcUserDAO.getUser("Cartmans");
     }
 
     @Test
